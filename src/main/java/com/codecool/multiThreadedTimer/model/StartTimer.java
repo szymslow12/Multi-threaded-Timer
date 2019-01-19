@@ -1,41 +1,24 @@
 package com.codecool.multiThreadedTimer.model;
 
-import com.codecool.multiThreadedTimer.controller.AppController;
-
-public class StartTimer implements Runnable {
+public class StartTimer extends Thread {
 
     private final long startTime;
-    private boolean isStarted;
-    private final String name;
-    public AppController controller;
+    private long seconds;
 
-    public StartTimer(long startTime, String name, AppController controller) {
+    public StartTimer(long startTime, String name) {
         this.startTime = startTime;
-        this.name = name;
-        this.controller = controller;
-        isStarted = true;
+        this.setName(name);
     }
 
     @Override
     public void run() {
-        try {
-            if (isStarted) {
-                wait();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while(!this.isInterrupted()) {
+            seconds = ((System.currentTimeMillis() - startTime) / 1000);
         }
-        controller.showTimer(this);
-        notify();
-    }
-
-
-    public synchronized void setStarted(boolean isStarted) {
-        this.isStarted = isStarted;
     }
 
 
     public String toString() {
-        return String.format("Timer: %s, Current millis: %s", name, System.currentTimeMillis() - startTime);
+        return String.format("Timer: %s, Seconds: %s", this.getName(), seconds);
     }
 }
