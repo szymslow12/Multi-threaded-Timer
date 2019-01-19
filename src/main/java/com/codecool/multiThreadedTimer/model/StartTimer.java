@@ -2,28 +2,17 @@ package com.codecool.multiThreadedTimer.model;
 
 public class StartTimer extends Thread {
 
-    private long startTime;
-    private long seconds;
+    private Timer timer;
 
-    public StartTimer(long startTime, String name) {
-        this.startTime = startTime;
+    public StartTimer(String name, Timer timer) {
+        this.timer = timer;
         this.setName(name);
     }
 
     @Override
     public void run() {
-        while(!this.isInterrupted()) {
-            seconds = ((System.currentTimeMillis() - startTime) / 1000);
+        while(true) {
+            timer.startCounting();
         }
-    }
-
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
-    }
-
-
-    public String toString() {
-        return String.format("Timer: %s, Seconds: %s", this.getName(), seconds);
     }
 }
