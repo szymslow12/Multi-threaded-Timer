@@ -21,7 +21,7 @@ public class Timer {
     }
 
     public String toString() {
-        return String.format("Timer: %s, Seconds: %s, Thread id: %s", name, seconds, threadId);
+        return String.format("Timer: %s, ThreadID: %s, Seconds: %s", name, threadId, seconds);
     }
 
 
