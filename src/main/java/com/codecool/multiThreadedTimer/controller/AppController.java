@@ -1,7 +1,7 @@
 package com.codecool.multiThreadedTimer.controller;
 
 import com.codecool.multiThreadedTimer.view.View;
-import com.codecool.multiThreadedTimer.model.threads.StartTimer;
+import com.codecool.multiThreadedTimer.model.threads.TimerThread;
 import com.codecool.multiThreadedTimer.model.Timer;
 import com.codecool.multiThreadedTimer.model.UserInputs;
 
@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 public class AppController {
 
@@ -87,7 +86,7 @@ public class AppController {
         Timer timer = new Timer(timerName);
         timer.setStartTime(System.currentTimeMillis());
         timersMap.put(timerName, timer);
-        new StartTimer(timerName, timer);
+        new TimerThread(timerName, timer);
         view.alert("Created " + timer);
     }
 

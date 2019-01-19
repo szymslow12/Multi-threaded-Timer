@@ -2,11 +2,11 @@ package com.codecool.multiThreadedTimer.model.threads;
 
 import com.codecool.multiThreadedTimer.model.Timer;
 
-public class StartTimer extends Thread {
+public class TimerThread extends Thread {
 
     private Timer timer;
 
-    public StartTimer(String name, Timer timer) {
+    public TimerThread(String name, Timer timer) {
         this.timer = timer;
         this.setName(name);
         new Thread(this, name).start();
