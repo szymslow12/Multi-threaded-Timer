@@ -1,6 +1,6 @@
 package com.codecool.multiThreadedTimer.controller;
 
-import com.codecool.multiThreadedTimer.model.StartTimer;
+import com.codecool.multiThreadedTimer.model.threads.StartTimer;
 import com.codecool.multiThreadedTimer.model.Timer;
 import com.codecool.multiThreadedTimer.model.UserInputs;
 
@@ -62,9 +62,9 @@ public class AppController {
             Timer timer = timersMap.get(timerName);
             if (timer == null) {
                 timer = new Timer(timerName);
-                timersMap.put(timerName, timer);
                 timer.setStartTime(System.currentTimeMillis());
-                new StartTimer(timerName, timer).start();
+                timersMap.put(timerName, timer);
+                new StartTimer(timerName, timer);
             } else {
                 timer.setStartTime(System.currentTimeMillis());
                 timer.setFlag(true);

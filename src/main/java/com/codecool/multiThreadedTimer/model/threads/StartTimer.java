@@ -9,6 +9,7 @@ public class StartTimer extends Thread {
     public StartTimer(String name, Timer timer) {
         this.timer = timer;
         this.setName(name);
+        new Thread(this, name).start();
     }
 
     @Override
