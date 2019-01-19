@@ -1,4 +1,6 @@
-package com.codecool.multiThreadedTimer.model;
+package com.codecool.multiThreadedTimer.model.threads;
+
+import com.codecool.multiThreadedTimer.model.Timer;
 
 public class StartTimer extends Thread {
 
