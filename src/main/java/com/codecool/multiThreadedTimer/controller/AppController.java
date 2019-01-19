@@ -84,6 +84,7 @@ public class AppController {
             alert("Bad action!");
             flag = false;
             notify();
+            //
         }
     }
 
