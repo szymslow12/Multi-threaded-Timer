@@ -65,9 +65,7 @@ public class AppController {
         } else if (action.equalsIgnoreCase("stop") && timerName != null) {
             handleStop(timerName);
         } else if (action.equalsIgnoreCase("check")) {
-            view.printTimers(timersMap);
-            flag = false;
-            notify();
+            handleStop(timerName);
         } else {
             view.alert("Bad action!");
             flag = false;
@@ -121,5 +119,16 @@ public class AppController {
             Thread thread = optional.get();
             thread.interrupt();
         }
+    }
+
+
+    private void handleCheck(String timerName) {
+        if (timerName != null) {
+            view.alert("Check " + timersMap.get(timerName));
+        } else {
+            view.printTimers(timersMap);
+        }
+        flag = false;
+        notify();
     }
 }
