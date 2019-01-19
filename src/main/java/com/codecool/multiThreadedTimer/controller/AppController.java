@@ -65,11 +65,10 @@ public class AppController {
         } else if (action.equalsIgnoreCase("stop") && timerName != null) {
             handleStop(timerName);
         } else if (action.equalsIgnoreCase("check")) {
-            handleStop(timerName);
+            handleCheck(timerName);
         } else {
             view.alert("Bad action!");
-            flag = false;
-            notify();
+            setFlagFalseAndNotify();
         }
     }
 
@@ -81,8 +80,7 @@ public class AppController {
         } else {
             resumeOldTimer(timer);
         }
-        flag = false;
-        notify();
+        setFlagFalseAndNotify();
     }
 
     private void createNewTimer(String timerName) {
@@ -106,8 +104,7 @@ public class AppController {
         timer.setFlag(false);
         interruptTimerThread(timerName);
         view.alert("Stopped " + timer);
-        flag = false;
-        notify();
+        setFlagFalseAndNotify();
     }
 
 
@@ -128,6 +125,11 @@ public class AppController {
         } else {
             view.printTimers(timersMap);
         }
+        setFlagFalseAndNotify();
+    }
+
+
+    private void setFlagFalseAndNotify() {
         flag = false;
         notify();
     }
