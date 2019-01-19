@@ -2,7 +2,7 @@ package com.codecool.multiThreadedTimer.model;
 
 public class StartTimer extends Thread {
 
-    private final long startTime;
+    private long startTime;
     private long seconds;
 
     public StartTimer(long startTime, String name) {
