@@ -8,13 +8,20 @@ public class Timer {
     private long startTime;
     private long seconds;
 
+    private long threadId;
+
     public Timer(String name) {
         this.name = name;
         this.flag = true;
     }
 
+
+    public void setThreadId(long threadId) {
+        this.threadId = threadId;
+    }
+
     public String toString() {
-        return String.format("Timer: %s, Seconds: %s", name, seconds);
+        return String.format("Timer: %s, Seconds: %s, Thread id: %s", name, seconds, threadId);
     }
 
 
