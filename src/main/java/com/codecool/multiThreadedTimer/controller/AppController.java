@@ -1,5 +1,6 @@
 package com.codecool.multiThreadedTimer.controller;
 
+import com.codecool.multiThreadedTimer.View;
 import com.codecool.multiThreadedTimer.model.threads.StartTimer;
 import com.codecool.multiThreadedTimer.model.Timer;
 import com.codecool.multiThreadedTimer.model.UserInputs;
@@ -11,12 +12,14 @@ public class AppController {
 
     private boolean flag = false;
     private UserInputs userInputs;
+    private View view;
     private String userChoice;
     private Map<String, Timer> timersMap;
 
-    public AppController(UserInputs userInputs) {
+    public AppController(UserInputs userInputs, View view) {
         this.userInputs = userInputs;
         timersMap = new HashMap<>();
+        this.view = view;
     }
 
 
@@ -33,7 +36,7 @@ public class AppController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        alert("Enter what you want to do?\n\t" +
+        view.alert("Enter what you want to do?\n\t" +
                 "'start timerName' - start new timer\n\t" +
                 "'stop timerName' - stop timer");
         userChoice = userInputs.getValue();
@@ -77,26 +80,13 @@ public class AppController {
             flag = false;
             notify();
         } else if (action.equalsIgnoreCase("check")) {
-            printTimers();
+            view.printTimers(timersMap);
             flag = false;
             notify();
         } else {
-            alert("Bad action!");
+            view.alert("Bad action!");
             flag = false;
             notify();
-            //
-        }
-    }
-
-
-    private void alert(String msg) {
-        System.out.println(msg);
-    }
-
-
-    private void printTimers() {
-        for (String key: timersMap.keySet()) {
-            alert(timersMap.get(key).toString());
         }
     }
 }
