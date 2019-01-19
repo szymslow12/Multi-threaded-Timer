@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class AppController {
@@ -62,17 +63,7 @@ public class AppController {
         if (action.equalsIgnoreCase("start") && timerName != null) {
             handleStart(timerName);
         } else if (action.equalsIgnoreCase("stop") && timerName != null) {
-            Timer timer = timersMap.get(timerName);
-            timer.setFlag(false);
-            Set<Thread> threads = Thread.getAllStackTraces().keySet();
-            Optional<Thread> optional = threads.stream().filter(thread -> thread.getName().equals(timerName)).findFirst();
-            if (optional.isPresent()) {
-                Thread thread = optional.get();
-                thread.interrupt();
-            }
-            view.alert("Stopped " + timer);
-            flag = false;
-            notify();
+            handleStop(timerName);
         } else if (action.equalsIgnoreCase("check")) {
             view.printTimers(timersMap);
             flag = false;
@@ -109,5 +100,26 @@ public class AppController {
         timer.setStartTime(System.currentTimeMillis());
         timer.setFlag(true);
         view.alert("Resumed " + timer);
+    }
+
+
+    private void handleStop(String timerName) {
+        Timer timer = timersMap.get(timerName);
+        timer.setFlag(false);
+        interruptTimerThread(timerName);
+        view.alert("Stopped " + timer);
+        flag = false;
+        notify();
+    }
+
+
+    private void interruptTimerThread(String timerName) {
+        Set<Thread> threads = Thread.getAllStackTraces().keySet();
+        Predicate<Thread> byName = thread -> thread.getName().equals(timerName);
+        Optional<Thread> optional = threads.stream().filter(byName).findFirst();
+        if (optional.isPresent()) {
+            Thread thread = optional.get();
+            thread.interrupt();
+        }
     }
 }
