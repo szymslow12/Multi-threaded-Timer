@@ -34,9 +34,11 @@ public class AppController {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        view.alert("Enter what you want to do?\n\t" +
+        view.alert("\nEnter what you want to do?\n\t" +
                 "'start timerName' - start new timer\n\t" +
-                "'stop timerName' - stop timer");
+                "'stop timerName' - stop timer\n\t" +
+                "'check timerName' - check given timer\n\t" +
+                "'check' - check all timers\n");
         userChoice = userInputs.getValue();
         flag = true;
         notify();
