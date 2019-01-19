@@ -68,6 +68,7 @@ public class AppController {
                 timer.setStartTime(System.currentTimeMillis());
                 timersMap.put(timerName, timer);
                 new StartTimer(timerName, timer);
+                view.alert("Created " + timer);
             } else {
                 timer.setStartTime(System.currentTimeMillis());
                 timer.setFlag(true);
@@ -77,6 +78,7 @@ public class AppController {
         } else if (action.equalsIgnoreCase("stop") && timerName != null) {
             Timer timer = timersMap.get(timerName);
             timer.setFlag(false);
+            view.alert("Stopped " + timer);
             flag = false;
             notify();
         } else if (action.equalsIgnoreCase("check")) {
