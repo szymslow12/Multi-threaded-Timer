@@ -88,7 +88,8 @@ public class AppController {
         Timer timer = new Timer(timerName);
         timer.setStartTime(System.currentTimeMillis());
         timersMap.put(timerName, timer);
-        new TimerThread(timerName, timer);
+        TimerThread thread = new TimerThread(timerName, timer);
+        timer.setThreadId(thread.getId());
         view.alert("Created " + timer);
     }
 
