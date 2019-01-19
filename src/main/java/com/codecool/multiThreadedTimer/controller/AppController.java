@@ -7,6 +7,9 @@ import com.codecool.multiThreadedTimer.model.UserInputs;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class AppController {
 
@@ -57,22 +60,16 @@ public class AppController {
         String action = splitedUserChoice[0];
         String timerName = splitedUserChoice.length > 1 ? splitedUserChoice[1]: null;
         if (action.equalsIgnoreCase("start") && timerName != null) {
-            Timer timer = timersMap.get(timerName);
-            if (timer == null) {
-                timer = new Timer(timerName);
-                timer.setStartTime(System.currentTimeMillis());
-                timersMap.put(timerName, timer);
-                new StartTimer(timerName, timer);
-                view.alert("Created " + timer);
-            } else {
-                timer.setStartTime(System.currentTimeMillis());
-                timer.setFlag(true);
-            }
-            flag = false;
-            notify();
+            handleStart(timerName);
         } else if (action.equalsIgnoreCase("stop") && timerName != null) {
             Timer timer = timersMap.get(timerName);
             timer.setFlag(false);
+            Set<Thread> threads = Thread.getAllStackTraces().keySet();
+            Optional<Thread> optional = threads.stream().filter(thread -> thread.getName().equals(timerName)).findFirst();
+            if (optional.isPresent()) {
+                Thread thread = optional.get();
+                thread.interrupt();
+            }
             view.alert("Stopped " + timer);
             flag = false;
             notify();
@@ -85,5 +82,32 @@ public class AppController {
             flag = false;
             notify();
         }
+    }
+
+
+    private void handleStart(String timerName) {
+        Timer timer = timersMap.get(timerName);
+        if (timer == null) {
+            createNewTimer(timerName);
+        } else {
+            resumeOldTimer(timer);
+        }
+        flag = false;
+        notify();
+    }
+
+    private void createNewTimer(String timerName) {
+        Timer timer = new Timer(timerName);
+        timer.setStartTime(System.currentTimeMillis());
+        timersMap.put(timerName, timer);
+        new StartTimer(timerName, timer);
+        view.alert("Created " + timer);
+    }
+
+
+    private void resumeOldTimer(Timer timer) {
+        timer.setStartTime(System.currentTimeMillis());
+        timer.setFlag(true);
+        view.alert("Resumed " + timer);
     }
 }
