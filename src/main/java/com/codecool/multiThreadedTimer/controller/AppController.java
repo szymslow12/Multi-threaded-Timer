@@ -23,11 +23,6 @@ public class AppController {
     }
 
 
-    public String getUserChoice() {
-        return userChoice;
-    }
-
-
     public synchronized void actionChoice() {
         try {
             if (flag) {
