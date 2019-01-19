@@ -1,6 +1,6 @@
 package com.codecool.multiThreadedTimer.controller;
 
-import com.codecool.multiThreadedTimer.View;
+import com.codecool.multiThreadedTimer.view.View;
 import com.codecool.multiThreadedTimer.model.threads.StartTimer;
 import com.codecool.multiThreadedTimer.model.Timer;
 import com.codecool.multiThreadedTimer.model.UserInputs;
