@@ -18,6 +18,11 @@ public class StartTimer extends Thread {
     }
 
 
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+
     public String toString() {
         return String.format("Timer: %s, Seconds: %s", this.getName(), seconds);
     }
