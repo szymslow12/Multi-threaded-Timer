@@ -13,7 +13,6 @@ public class ActionHandler implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("ActionHandler started");
         while (true) {
             controller.handleAction();
         }

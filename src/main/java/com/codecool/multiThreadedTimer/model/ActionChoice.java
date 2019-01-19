@@ -13,7 +13,6 @@ public class ActionChoice implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("ActionChoice started");
         while (true) {
             controller.actionChoice();
         }
