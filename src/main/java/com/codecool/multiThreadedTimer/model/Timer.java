@@ -40,4 +40,9 @@ public class Timer {
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
+
+
+    public String getName() {
+        return name;
+    }
 }
