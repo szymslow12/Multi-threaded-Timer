@@ -111,13 +111,19 @@ public class AppController {
 
 
     private void interruptTimerThread(String timerName) {
-        Set<Thread> threads = Thread.getAllStackTraces().keySet();
-        Predicate<Thread> byName = thread -> thread.getName().equals(timerName);
-        Optional<Thread> optional = threads.stream().filter(byName).findFirst();
+        Optional<Thread> optional = getOptionalThread(timerName);
         if (optional.isPresent()) {
             Thread thread = optional.get();
             thread.interrupt();
         }
+    }
+
+
+    private Optional<Thread> getOptionalThread(String timerName) {
+        Set<Thread> threads = Thread.getAllStackTraces().keySet();
+        Predicate<Thread> byName = thread -> thread.getName().equals(timerName);
+        Optional<Thread> optional = threads.stream().filter(byName).findFirst();
+        return optional;
     }
 
 
